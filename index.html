@@ -18,12 +18,14 @@
     nav, main { max-width: 72rem; }
 
     .avatar {
-      width: 104px;
-      height: 104px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       border: 2px solid var(--border);
-      margin-bottom: 1.2rem;
     }
+    .author { display: flex; align-items: center; gap: 1rem; margin: 1.4rem 0 0; }
+    .author .who strong { display: block; font-size: 1.05rem; }
+    .author .who span { color: var(--muted); font-size: 0.95rem; }
 
     .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.1rem 0 1.6rem; }
     .pill {
@@ -78,8 +80,6 @@
       animation: blink 1.1s steps(1) infinite;
     }
     @keyframes blink { 50% { opacity: 0; } }
-    .hero .byline { color: var(--muted); margin: 0.4rem 0 0; }
-    .hero .tagline { font-size: 1.2rem; max-width: 44ch; }
 
     .ctas { display: flex; gap: 0.9rem; margin-top: 1.8rem; flex-wrap: wrap; }
     .btn {
@@ -169,7 +169,6 @@
   <main>
     <section class="hero">
       <div>
-        <img class="avatar" src="https://geert.md/assets/profile.png" alt="Profile picture of Geert Theys">
         <h1>Monetize OSS<span class="cursor">_</span></h1>
         <div class="pills">
           <span class="pill">Open Source</span>
@@ -177,8 +176,13 @@
           <span class="pill">Interviews</span>
           <span class="pill">Scorecards</span>
         </div>
-        <p class="tagline">Open source software on top of services we host — and how to actually make money from it in the age of AI.</p>
-        <p class="byline">by <a href="https://geert.md/" target="_blank" rel="noopener">Geert Theys</a></p>
+        <div class="author">
+          <img class="avatar" src="https://geert.md/assets/profile.png" alt="Profile picture of Geert Theys">
+          <div class="who">
+            <strong><a href="https://geert.md/" target="_blank" rel="noopener">Geert Theys</a></strong>
+            <span>Open source, AI, and how maintainers make money.</span>
+          </div>
+        </div>
         <div class="ctas">
           <a class="btn btn-primary" href="https://blog.monetize-oss.com/">Read the blog</a>
           <a class="btn btn-ghost" href="https://scorecards.monetize-oss.com/" target="_blank" rel="noopener">Browse scorecards</a>
