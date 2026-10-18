@@ -81,9 +81,9 @@
     }
 
     /* split feature cards: text one side, image the other */
+    .feature { display: grid; grid-template-columns: 1fr 1.1fr; }
+    .feature.wide-img { grid-template-columns: 1fr 1.6fr; }
     .feature {
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
       gap: 2.5rem;
       align-items: center;
       background: var(--card);
@@ -105,7 +105,15 @@
       display: block;
     }
     .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
-    .thumbs img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; }
+    .thumbs img { width: 100%; aspect-ratio: 1376 / 768; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); display: block; }
+
+    /* AIDEV-NOTE: light-scheme contrast — teal/green accents fail on white;
+       swap text-colored accents for darker emerald/teal, borders stay bright. */
+    @media (prefers-color-scheme: light) {
+      .pill { color: #047857; }
+      .why em { color: #0f766e; }
+      .feature .go { color: #0f766e; }
+    }
 
     @media (max-width: 52rem) {
       .feature, .feature.flip { grid-template-columns: 1fr; }
@@ -177,7 +185,7 @@
       <img src="assets/scorecards-hero.png" alt="Screenshot of scorecards.monetize-oss.com" loading="lazy">
     </section>
 
-    <section class="feature">
+    <section class="feature wide-img">
       <div class="f-text">
         <h2>Blog</h2>
         <p>
