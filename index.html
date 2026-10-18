@@ -35,10 +35,43 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
+    .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: center; padding: 2.5rem 0 1rem; }
     .hero h1 {
       font-size: clamp(2.6rem, 6vw, 4.2rem);
       margin: 0 0 0.6rem;
       letter-spacing: -0.02em;
+    }
+    /* terminal card next to the hero — echoes the consent widget */
+    .term {
+      background: #14161c;
+      border: 1px solid #262b36;
+      border-radius: 12px;
+      overflow: hidden;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #d7dae0;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    }
+    .term .t-titlebar {
+      display: flex; align-items: center; gap: 0.45rem;
+      padding: 0.5rem 0.8rem; background: #1b1e26; border-bottom: 1px solid #262b36;
+    }
+    .term .t-dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; }
+    .term .t-dot.r { background: #ff5f57; }
+    .term .t-dot.y { background: #febc2e; }
+    .term .t-dot.g { background: #28c840; }
+    .term .t-title { flex: 1; text-align: center; color: #8a919c; font-size: 0.78rem; }
+    .term .t-body { padding: 1rem 1.2rem 1.2rem; }
+    .term .t-prompt { color: #34d399; font-weight: 700; }
+    .term .t-out { color: #8a919c; }
+    .term .t-cursor {
+      display: inline-block; width: 0.55em; height: 1.1em;
+      background: #febc2e; vertical-align: text-bottom;
+      animation: blink 1.1s steps(1) infinite;
+    }
+    @media (max-width: 52rem) {
+      .hero { grid-template-columns: 1fr; }
     }
     .hero .cursor {
       color: #febc2e;
@@ -64,8 +97,8 @@
 
     /* the why — display-scale statement, no card chrome */
     .why {
-      margin: 4.5rem 0;
-      max-width: 30ch;
+      margin: 4rem 0;
+      max-width: 36ch;
       font-size: clamp(1.5rem, 3.2vw, 2.2rem);
       line-height: 1.35;
       font-weight: 600;
@@ -135,19 +168,34 @@
   </header>
   <main>
     <section class="hero">
-      <img class="avatar" src="https://geert.md/assets/profile.png" alt="Profile picture of Geert Theys">
-      <h1>Monetize OSS<span class="cursor">_</span></h1>
-      <div class="pills">
-        <span class="pill">Open Source</span>
-        <span class="pill">AI</span>
-        <span class="pill">Interviews</span>
-        <span class="pill">Scorecards</span>
+      <div>
+        <img class="avatar" src="https://geert.md/assets/profile.png" alt="Profile picture of Geert Theys">
+        <h1>Monetize OSS<span class="cursor">_</span></h1>
+        <div class="pills">
+          <span class="pill">Open Source</span>
+          <span class="pill">AI</span>
+          <span class="pill">Interviews</span>
+          <span class="pill">Scorecards</span>
+        </div>
+        <p class="tagline">Open source software on top of services we host — and how to actually make money from it in the age of AI.</p>
+        <p class="byline">by <a href="https://geert.md/" target="_blank" rel="noopener">Geert Theys</a></p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="https://blog.monetize-oss.com/">Read the blog</a>
+          <a class="btn btn-ghost" href="https://scorecards.monetize-oss.com/" target="_blank" rel="noopener">Browse scorecards</a>
+        </div>
       </div>
-      <p class="tagline">Open source software on top of services we host — and how to actually make money from it in the age of AI.</p>
-      <p class="byline">by <a href="https://geert.md/" target="_blank" rel="noopener">Geert Theys</a></p>
-      <div class="ctas">
-        <a class="btn btn-primary" href="https://blog.monetize-oss.com/">Read the blog</a>
-        <a class="btn btn-ghost" href="https://scorecards.monetize-oss.com/" target="_blank" rel="noopener">Browse scorecards</a>
+      <div class="term" aria-hidden="true">
+        <div class="t-titlebar">
+          <span class="t-dot r"></span><span class="t-dot y"></span><span class="t-dot g"></span>
+          <span class="t-title">geert@monetize-oss: ~</span>
+        </div>
+        <div class="t-body">
+          <div><span class="t-prompt">&gt;</span> whoami</div>
+          <div class="t-out">builder · interviewer · open source user</div>
+          <div><span class="t-prompt">&gt;</span> cat mission.txt</div>
+          <div class="t-out">OSS on services we host.<br>Charge for the service, not the code.</div>
+          <div><span class="t-prompt">&gt;</span> <span class="t-cursor"></span></div>
+        </div>
       </div>
     </section>
 
