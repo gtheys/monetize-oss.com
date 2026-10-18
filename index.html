@@ -74,16 +74,26 @@
     .term .t-cursor {
       display: inline-block; width: 0.55em; height: 1.1em;
       background: #febc2e; vertical-align: text-bottom;
-      animation: blink 1.1s steps(1) infinite;
     }
     @media (max-width: 52rem) {
       .hero { grid-template-columns: 1fr; }
     }
-    .hero .cursor {
-      color: #febc2e;
-      animation: blink 1.1s steps(1) infinite;
+    .hero .cursor { color: #febc2e; }
+    /* AIDEV-NOTE: blink only when motion is OK; the cursor itself stays visible */
+    @media (prefers-reduced-motion: no-preference) {
+      .term .t-cursor, .hero .cursor { animation: blink 1.1s steps(1) infinite; }
     }
     @keyframes blink { 50% { opacity: 0; } }
+
+    /* value-proposition subheadline under the wordmark */
+    .subhead {
+      color: var(--muted);
+      font-size: 1.15rem;
+      line-height: 1.5;
+      max-width: 46ch;
+      margin: 0 0 1.2rem;
+    }
+    .subhead em { color: var(--accent); font-style: normal; }
 
     /* the why — display-scale statement, no card chrome */
     .why {
@@ -122,12 +132,60 @@
     .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
     .thumbs img { width: 100%; aspect-ratio: 1376 / 768; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); display: block; }
 
+    /* pull-quote card (interviews); eight-ways.jpg stays exclusive to the Blog thumbs */
+    .pullquote {
+      background: #14161c;
+      border: 1px solid #262b36;
+      border-left: 3px solid #5eead4;
+      border-radius: 12px;
+      padding: 1.6rem 1.8rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #d7dae0;
+      margin: 0;
+    }
+    .pullquote .pq-mark { color: #5eead4; font-weight: 700; }
+    .pullquote footer {
+      margin-top: 0.9rem;
+      color: #8a919c;
+      font-size: 0.88rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    /* filled CTAs — the only filled buttons on the page */
+    .cta, .cta-sec {
+      display: inline-block;
+      background: #34d399;
+      color: #0f1115;
+      text-decoration: none;
+    }
+    .cta:hover, .cta-sec:hover { filter: brightness(1.1); text-decoration: none; }
+    .cta { font-weight: 700; border-radius: 8px; padding: 0.7rem 1.4rem; }
+    .cta-sec { font-weight: 600; border-radius: 6px; padding: 0.35rem 0.9rem; font-size: 0.95rem; }
+
+    /* email-capture band between Blog card and footer */
+    .capture {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .capture h2 { margin: 0 0 0.4rem; font-size: 1.6rem; }
+    .capture p { color: var(--muted); margin: 0 0 1.2rem; }
+
     /* AIDEV-NOTE: light-scheme contrast — teal/green accents fail on white;
        swap text-colored accents for darker emerald/teal, borders stay bright. */
     @media (prefers-color-scheme: light) {
       .pill { color: #047857; }
       .why em { color: #0f766e; }
+      .subhead em { color: #0f766e; }
       .feature .go { color: #0f766e; }
+      .pullquote { background: #f4f5f7; border-color: #d9dce2; border-left-color: #0f766e; color: #262b36; }
+      .pullquote .pq-mark { color: #0f766e; }
+      .pullquote footer { color: #5b6470; }
+      .cta, .cta-sec { background: #059669; color: #ffffff; }
     }
 
     @media (max-width: 52rem) {
@@ -143,8 +201,8 @@
       <a class="brand" href="https://monetize-oss.com/"><strong>Monetize&nbsp;OSS</strong></a>
       <div class="links">
         <a href="https://blog.monetize-oss.com/">Blog</a>
-        <a href="https://scorecards.monetize-oss.com/" target="_blank" rel="noopener">Scorecards</a>
-        <a href="https://geert.md/" target="_blank" rel="noopener">geert.md</a>
+        <a href="https://scorecards.monetize-oss.com/" target="_blank" title="Opens in a new tab" rel="noopener">Scorecards</a>
+        <a href="https://geert.md/" target="_blank" title="Opens in a new tab" rel="noopener">geert.md</a>
       </div>
     </nav>
   </header>
@@ -152,6 +210,10 @@
     <section class="hero">
       <div>
         <h1>Monetize OSS<span class="cursor">_</span></h1>
+        <p class="subhead">
+          Open source in the age of AI: charge for the service, not the code.
+          <em>Maintenance is the last moat.</em>
+        </p>
         <div class="pills">
           <span class="pill">Open Source</span>
           <span class="pill">AI</span>
@@ -169,13 +231,13 @@
           <a href="mailto:geert@monetize-oss.com" aria-label="Email geert@monetize-oss.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
           </a>
-          <a href="https://github.com/gtheys" target="_blank" rel="noopener" aria-label="GitHub: gtheys">
+          <a href="https://github.com/gtheys" target="_blank" title="Opens in a new tab" rel="noopener" aria-label="GitHub: gtheys">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
           </a>
-          <a href="https://geerttheys.substack.com" target="_blank" rel="noopener" aria-label="Substack: geerttheys">
+          <a href="https://monetizeoss.substack.com" target="_blank" title="Opens in a new tab" rel="noopener" aria-label="Substack: Monetize OSS">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
           </a>
-          <a href="https://geert.md/" target="_blank" rel="noopener" aria-label="Website: geert.md">
+          <a href="https://geert.md/" target="_blank" title="Opens in a new tab" rel="noopener" aria-label="Website: geert.md">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           </a>
         </div>
@@ -210,9 +272,13 @@
           I interview open source developers about how AI is changing the way they
           monetize — what's working, what stopped working, and what they're trying next.
         </p>
-        <a class="go" href="https://blog.monetize-oss.com/">Read the interviews &rarr;</a>
+        <a class="cta-sec" href="https://blog.monetize-oss.com/">Interviews start soon &mdash; read the essays &rarr;</a>
       </div>
-      <img src="assets/eight-ways.jpg" alt="Illustration from the post 'The 8 Ways to Make Money from Open Source'" loading="lazy">
+      <blockquote class="pullquote">
+        <span class="pq-mark">&ldquo;</span>Everyone wants the code.
+        Nobody wants the on-call. Charge for the on-call.<span class="pq-mark">&rdquo;</span>
+        <footer>— a maintainer, eventually</footer>
+      </blockquote>
     </section>
 
     <section class="feature flip">
@@ -223,7 +289,7 @@
           of projects by maintenance health — commit activity, release cadence, issue and
           PR response, CI, tests, docs. Refreshed nightly from the GitHub API. Not stars.
         </p>
-        <a class="go" href="https://scorecards.monetize-oss.com/" target="_blank" rel="noopener">Browse the scorecards &rarr;</a>
+        <a class="go" href="https://scorecards.monetize-oss.com/" target="_blank" title="Opens in a new tab" rel="noopener">Browse the scorecards &rarr;</a>
       </div>
       <img src="assets/scorecards-hero.png" alt="Screenshot of scorecards.monetize-oss.com" loading="lazy">
     </section>
@@ -244,14 +310,20 @@
         <img src="assets/eight-ways.jpg" alt="Illustration from 'The 8 Ways to Make Money from Open Source'" loading="lazy">
       </div>
     </section>
+
+    <section class="capture">
+      <h2>One email a month. No hype.</h2>
+      <p>New essays and maintainer interviews, straight to your inbox.</p>
+      <a class="cta" href="https://monetizeoss.substack.com/subscribe" target="_blank" title="Opens in a new tab" rel="noopener">Subscribe on Substack&nbsp;&rarr;</a>
+    </section>
   </main>
   <footer>
     <p>
       <a href="https://blog.monetize-oss.com/">blog.monetize-oss.com</a>
       &middot;
-      <a href="https://scorecards.monetize-oss.com/" target="_blank" rel="noopener">scorecards.monetize-oss.com</a>
+      <a href="https://scorecards.monetize-oss.com/" target="_blank" title="Opens in a new tab" rel="noopener">scorecards.monetize-oss.com</a>
       &middot;
-      written by <a href="https://geert.md/" target="_blank" rel="noopener">Geert Theys</a>
+      written by <a href="https://geert.md/" target="_blank" title="Opens in a new tab" rel="noopener">Geert Theys</a>
     </p>
   </footer>
 </body>
